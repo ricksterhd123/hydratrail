@@ -181,8 +181,7 @@ end
 
 -- Add the new projectile point
 function addProjectilePoint(projectile)
-	if not projectile then return end
-    if not isElement(projectile) then return end
+    if not projectile or not isElement(projectile) then return end
 	local x, y, z = getElementPosition(projectile)
     local points = getProjectilePoints(projectile)
     if not points then
@@ -216,11 +215,11 @@ function drawTrails()
             end
         )
 
-        Async:foreach(projects,
-            function (v)
-                delProjectilePoint(v)
-            end
-        )
+        -- Async:foreach(projects,
+        --     function (v)
+        --         delProjectilePoint(v)
+        --     end
+        -- )
         delPrevTick = tick
     end
 
@@ -231,15 +230,15 @@ function drawTrails()
                 addVehiclePoint(v)
             end
         )
-        Async:foreach(projects,
-            function (v)
-                addProjectilePoint(v)
-            end
-        )
+        -- Async:foreach(projects,
+        --     function (v)
+        --         addProjectilePoint(v)
+        --     end
+        -- )
         prevTick = tick
 	end
     drawHydraTrail(HYDRA_TRAIL.red, HYDRA_TRAIL.green, HYDRA_TRAIL.blue, HYDRA_TRAIL.alpha, HYDRA_TRAIL.thickness)
-    drawProjectileTrail(PROJECTILE_TRAIL.red, PROJECTILE_TRAIL.green, PROJECTILE_TRAIL.blue, PROJECTILE_TRAIL.alpha, PROJECTILE_TRAIL.thickness)
+    --drawProjectileTrail(PROJECTILE_TRAIL.red, PROJECTILE_TRAIL.green, PROJECTILE_TRAIL.blue, PROJECTILE_TRAIL.alpha, PROJECTILE_TRAIL.thickness)
 end
 
 -- Toggle the hydra trail by command

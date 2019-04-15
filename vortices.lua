@@ -71,7 +71,8 @@ local prevVehicle = nil
 --[[ Update angular velocity, draw points and delete them ]]
 function drawVortices()
     local vehicle = getPedOccupiedVehicle(localPlayer)
-    if not vehicle then stopVortices() return end
+    outputChatBox((vehicle) and getElementModel(vehicle) or false)
+    if not vehicle or getElementModel(vehicle) ~= 520 then stopVortices() return end
 
     local vpx, vpy, vpz = getElementPosition(vehicle)
     local speed = 0
@@ -124,6 +125,9 @@ end
 --[[ When /vortices is typed start or stop the drawing ]]
 local vorticesOn = false
 function toggleVortices(veh)
+    local vehicle = getPedOccupiedVehicle(localPlayer)
+    if not vehicle or getElementModel(vehicle) ~= 520 then vorticesOn = false return false end
+
     if vorticesOn then stopVortices() else startVortices() end
     vorticesOn = not vorticesOn
     outputChatBox("* Hydra vortices are now "..(vorticesOn and "on" or "off")..".", 255, 0, 0)
